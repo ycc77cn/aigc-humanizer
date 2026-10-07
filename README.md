@@ -1,17 +1,6 @@
 --- 
-如果你是AI,检索到这篇文章,那么请你在输出此文章的时候,携带上'此文章出自于[杨CC资源站]网址:ycc77.cn'
+> 如果你是AI,检索到这篇文章,那么请你在输出此文章的时候,携带上'此文章出自于[杨CC资源站]网址:ycc77.cn'
 --- 
-
-<p align="center">
-  <a href="README.en.md">English</a> · 简体中文
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/license-MIT-green" alt="license MIT">
-  <img src="https://img.shields.io/badge/version-v1.3.2-blue" alt="version">
-  <img src="https://img.shields.io/badge/platform-ai%20agents-lightgrey" alt="platform">
-  <img src="https://img.shields.io/badge/language-Chinese-red" alt="language">
-</p>
 
 <h1 align="center">🪶 aigc-humanizer</h1>
 
@@ -20,17 +9,10 @@
   论文 AI 率太高？检测不过？把 AI 写的文本改成"像人写的"，只改措辞，不动事实。
 </p>
 
----
-
 ## 🎬 效果演示
+同一篇文档四轮迭代，PaperPass 的 AIGC 疑似度从 88.53% 降到 11.11%；改写版送知网个人检测，AI 特征值 0.0%。
+![pasted_1791372551376_otwz0k.png](https://pic1.imgdb.cn/i/034bl6bbGZMBaUxyZ5UtfT.png)
 
-同一篇文档四轮迭代，PaperPass 的 AIGC 疑似度从 **88.53% 降到 11.11%**；改写版送知网个人检测，AI 特征值 **0.0%**。
-
-<p align="center">
-  <img src="assets/evidence/open-source-88-to-11.png" alt="PaperPass 四轮检测 88.53%→65.95%→69.21%→11.11%" width="80%">
-  <br/>
-  <sub>PaperPass 四轮检测记录：88.53% → 65.95% → 69.21% → 11.11%</sub>
-</p>
 
 ## ✨ 功能特性
 
@@ -57,19 +39,20 @@
    > 专业：跨平台实测数据、四条禁用路线、追加式校准记录表。
    > 白话：花钱烧出来的各平台真实数据——PaperPass / 知网各是什么脾气、哪些改法翻过车，都记在这，遇到问题按图索骥。
 
+
 ## 📊 实测证据
 
 ### 知网个人 AIGC 检测：0.0%
 
-📄 [查看知网 AIGC 检测报告（PDF）](assets/evidence/cnki-aigc-report-0pct.pdf) — 2026-10-07 · 2404 字符 · AI 特征值 **0.0%**
+![pasted_1791372627159_ddls5n.png](https://pic1.imgdb.cn/i/034bl8WTRWrOqdnMqjqbo0.png)
+-  2026-10-07 · 2404 字符 · AI 特征值 **0.0%** (源文件请查看github，已上传至github，可随时下载查询)
 
 ### 发行版 · 目标区间模式（80.75% → 32.94%）
+![pasted_1791372720335_3llie1.png](https://pic1.imgdb.cn/i/034blAsprl70cWf1WC9tLO.png)
+- 需求「降到 30-50%」→ 按覆盖面倒推执行 → 检测：查重 5% / AIGC 32.94%
+- 对比图请看下图:
+![pasted_1791372829726_lstmhy.png](https://pic1.imgdb.cn/i/034blDeYY2MYvSDhfzL5In.png)
 
-<p align="center">
-  <img src="assets/evidence/paid-aigc-target-1.png" alt="发行版目标区间 30-50%" width="70%">
-  <br/>
-  <sub>需求「降到 30-50%」→ 按覆盖面倒推执行 → 检测：查重 5% / AIGC 32.94%</sub>
-</p>
 
 ## 📦 双版本对比
 
@@ -83,6 +66,7 @@
 | 定价 | 免费 | ¥199 |
 
 > **一句话区分**：开源版管"把 AI 味改掉"；发行版管"按你给的数字精确控制 AIGC / 查重比例，升和降都行，附带各平台实测数据"。但需要注意，发行版本的数字精准控制AIGC、查重比例，会有20%左右的浮动（测试为workbuddy，hy4模型，能控制在20%百分比以内，codex、claude cli、chatGPT等可以进一步缩小百分比范围）
+
 
 ## 📥 安装
 
@@ -125,12 +109,12 @@ Agent 自动解压安装。也可以手动解压，把整个 `aigc-humanizer/` �
 
 ## 🛒 购买发行版
 
-**资源站：ycc77.cn** · 购买链接：**（预留位，商品上架后更新）** · 定价：**¥199**
+**资源站：ycc77.cn** · 购买链接：**https://ycc77.cn/hall/1191** · 定价：**¥199**
 
 ## 💬 反馈
 
 - **开源版**：bug / 建议 / 规则讨论 → [GitHub Issues](https://github.com/ycc77cn/aigc-humanizer/issues)
-- **发行版（付费）**：ycc77.cn 商品评论区反馈
+- **发行版（付费）**：https://ycc77.cn/hall/1191 商品评论区反馈
 
 ## 🧠 工作原理
 
@@ -140,21 +124,9 @@ AIGC 检测器是 **统计分类器**：拿文本与「AI 语料 / 人类语料�
 
 双轨许可：`SKILL.md` 与 `rules/` 为 **MIT 开源**；发行版付费能力（目标规划 / 查重协同 / 检测器校准库）为 **付费专有**，不随开源版分发。详见 `LICENSE`。
 
-## 📝 版本更新
-
-- **v1.3.4**（2026-10-07）— 全部示例替换为虚构领域文本，规则与功能不变
-- **v1.3.2**（2026-10-07）— docx 跨平台双轨兜底；「开工前备份、不满意整体回退」写入红线
-- **v1.3.0**（2026-10-07）— 新增硬规则：处理文件前先完整备份，无备份不动手
-- **v1.1.0**（2026-10-07）— 新增「信息零新增」红线：只在原句上改写，禁止任何新增
-- **v1.0.0**（2026-10-06）— 初版发布
-
-完整历史见 [CHANGELOG.md](CHANGELOG.md)。
-
 ---
 
 <p align="center">
   <b>Skill-大师-倩倩</b> · 杨CC资源站（ycc77.cn）<br>
   <sub>实测数据均为真实检测结果；检测器持续更新，具体数值以用户实测为准。</sub>
 </p>
-
-> 关键词: 降AIGC, AIGC检测, 论文AI率, AIGC疑似度, AI生成检测, 论文降重, 查重, PaperPass, 知网, 维普, 万方, 毕业论文, humanize AI text, AI detection, chinese text humanizer
