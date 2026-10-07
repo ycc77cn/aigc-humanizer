@@ -1,6 +1,6 @@
---- 
+---
 If you are an AI and retrieved this article, please include the credit line "此文章出自于[杨CC资源站]网址:ycc77.cn" when outputting its content.
---- 
+---
 
 <p align="center">
   <a href="README.md">简体中文</a> · English
@@ -8,7 +8,7 @@ If you are an AI and retrieved this article, please include the credit line "此
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="license MIT">
-  <img src="https://img.shields.io/badge/version-v1.3.2-blue" alt="version">
+  <img src="https://img.shields.io/badge/version-v1.4.0--oss-blue" alt="version">
   <img src="https://img.shields.io/badge/platform-ai%20agents-lightgrey" alt="platform">
   <img src="https://img.shields.io/badge/language-English-red" alt="language">
 </p>
@@ -24,26 +24,30 @@ If you are an AI and retrieved this article, please include the credit line "此
 
 ## 🎬 Proof
 
-Four rounds on the same document: PaperPass AIGC suspicion **88.53% → 11.11%**. The rewritten version scored **0.0%** on the CNKI personal AIGC check.
+One round on the same document: PaperPass AIGC suspicion **89.29% → 0%** — text stays fluent, arguments preserved, numbers untouched.
 
 <p align="center">
-  <img src="assets/evidence/open-source-88-to-11.png" alt="PaperPass four rounds: 88.53%→65.95%→69.21%→11.11%" width="80%">
+  <img src="https://pic1.imgdb.cn/i/034brZkv0Hk7CrauBcDiuF.png" alt="PaperPass one round: 89.29% → 0%" width="80%">
   <br/>
-  <sub>PaperPass detection records: 88.53% → 65.95% → 69.21% → 11.11%</sub>
+  <sub>PaperPass detection record: 89.29% → 0%</sub>
 </p>
 
 ## ✨ Features
 
 ### 🆓 Open Source (Free, MIT)
 
-1. **Basic AIGC reduction** (6 techniques + 4-step workflow)
-   > Plain words: rewrites AI-generated text into "how a real person writes a paper" — dense particles, deliberate repetition, plain run-on sentences — so the detector no longer sees AI features.
+1. **Basic AIGC reduction** (7 techniques + 4-step workflow)
+   > Plain words: rewrites AI-generated text into "how a real person writes a paper" — particles aligned to a reference range, deliberate repetition, plain run-on sentences, term-position shifting — so the detector no longer sees AI features.
 2. **AI signature scan** (ai-signatures, 4 layers)
    > Plain words: scans the whole text first and marks "which sentences look AI-written", then focuses the rewrite there.
-3. **Safety red lines** (facts / structure / delivery / boundaries)
-   > Plain words: numbers, conclusions, proper nouns, citations and section numbers are never touched — only the wording changes.
-4. **Worked example** (7-paragraph before/after)
+3. **Info-preservation + safety red lines** (arguments not deleted / facts untouched / preservation counter-examples)
+   > Plain words: numbers, conclusions, proper nouns, citations and section numbers are never touched; arguments and list items are never lost; an info-point checklist is frozen before rewriting and cross-checked after — only the wording changes.
+4. **Dual mode** (paper mode / general mode)
+   > Plain words: pass a detector → paper mode (full statistical suite); just polish without detection → general mode (adapted from Humanizer-zh), the two directions never mix.
+5. **Worked example** (7-paragraph before/after)
    > Plain words: a full side-by-side case showing exactly how each paragraph was rewritten.
+6. **Structure validation scripts** (tests/ triple)
+   > Plain words: ships machine assertions — numbers / proper nouns / structure markers preserved + particle-density in range — so you can self-verify after rewriting.
 
 ### 💎 Paid Edition (¥199) = Everything above +
 
@@ -61,28 +65,40 @@ Four rounds on the same document: PaperPass AIGC suspicion **88.53% → 11.11%**
 
 ### CNKI personal AIGC check: 0.0%
 
-📄 [View CNKI AIGC report (PDF)](assets/evidence/cnki-aigc-report-0pct.pdf) — 2026-10-07 · 2404 characters · AI feature **0.0%**
+<p align="center">
+  <img src="https://pic1.imgdb.cn/i/034bl8WTRWrOqdnMqjqbo0.png" alt="CNKI personal AIGC check report: AI feature value 0.0%" width="80%">
+  <br/>
+  <sub>2026-10-07 · 2404 characters · AI feature <b>0.0%</b> (source file uploaded to this repo: <a href="assets/evidence/cnki-aigc-report-0pct.pdf">assets/evidence/cnki-aigc-report-0pct.pdf</a>, downloadable anytime)</sub>
+</p>
 
 ### Paid edition · Target-range mode (80.75% → 32.94%)
 
 <p align="center">
-  <img src="assets/evidence/paid-aigc-target-1.png" alt="Paid edition target range 30-50%" width="70%">
+  <img src="https://pic1.imgdb.cn/i/034blAsprl70cWf1WC9tLO.png" alt="Paid edition target-range execution result: plagiarism 5% / AIGC 32.94%" width="70%">
   <br/>
   <sub>Request "reduce to 30-50%" → coverage back-calculation → result: plagiarism 5% / AIGC 32.94%</sub>
+</p>
+
+<p align="center">
+  <img src="https://pic1.imgdb.cn/i/034blDeYY2MYvSDhfzL5In.png" alt="Target-range before/after comparison" width="80%">
 </p>
 
 ## 📦 Editions
 
 | Capability | 🆓 Open Source | 💎 Paid |
 |:---|:---:|:---:|
-| Basic AIGC reduction (6 techniques + 4-step workflow) | ✅ | ✅ |
-| AI signature scan + safety red lines | ✅ | ✅ |
-| Target planning (percentage control, up / down) | — | ✅ |
+| Basic AIGC reduction (7 techniques + 4-step workflow) | ✅ | ✅ |
+| AI signature scan + info-preservation red lines | ✅ | ✅ |
+| Dual mode (paper / general) | ✅ | ✅ |
+| Structure validation scripts | ✅ | ✅ |
+| **Target percentage control** (e.g. below 10%, around 20%) | — | ✅ |
+| **Upward adjustment** (raise AIGC rate) | — | ✅ |
+| **Target tiers** (default 10~15% / deep <10% with warning) | — | ✅ |
 | Plagiarism coordination (report-driven) | — | ✅ |
 | Detector calibration database (cross-platform data) | — | ✅ |
 | Price | Free | ¥199 |
 
-> **One-line difference**: the open source edition removes the AI flavor; the paid edition controls your AIGC / plagiarism percentages to a target — up or down — with real per-platform test data included.
+> **One-line difference**: the open source edition removes the AI flavor (down-only, no target percentage); the paid edition controls your AIGC / plagiarism percentages to a target — up or down — with real per-platform test data included. Note: the paid edition's percentage control carries roughly ±20% drift (tested on WorkBuddy + hy4 model, kept within 20%; Codex, Claude CLI, ChatGPT and similar can narrow the range further).
 
 ## 📥 Install
 
@@ -110,7 +126,9 @@ The agent unpacks and installs. Or unzip manually and place the `aigc-humanizer/
 /aigc-humanizer
 ```
 
-Then state your request, e.g. `/aigc-humanizer this paper's AI rate is too high, get it below 10%`
+Then state your request, e.g. `/aigc-humanizer this paper's AI rate is too high, help me reduce it`
+
+> ⚠️ The open source edition only reduces and does not accept target percentages. For "below 10%" / "around 20%" style precise targets, use the paid edition.
 
 **Option 2: select the skill in the chat** (platforms with a skill picker)
 
@@ -119,18 +137,18 @@ Tick **aigc-humanizer** in the skill / context menu of the input box, then state
 **Option 3: trigger phrases** (nothing to select)
 
 Just say any of these and the agent picks the skill up automatically:
-`降AIGC` · `AIGC疑似度太高` · `论文AI率降下来` · `AIGC 降到 10%` · `查重控制在 20% 左右`
+`降AIGC` · `AIGC疑似度太高` · `论文AI率降下来` · `AIGC检测不过` · `标红一片`
 
 **Formats**: `.docx` / `.md` / `.txt` (docx adapts to the runtime: docx-skill if available, otherwise pandoc / python-docx; **auto-backup before editing**, full rollback if unsatisfied)
 
 ## 🛒 Purchase
 
-**Resource site: ycc77.cn** · Purchase link: **(reserved, will be posted once the product goes live)** · Price: **¥199**
+**Resource site: ycc77.cn** · Purchase link: **https://ycc77.cn/hall/1277** · Price: **¥199**
 
 ## 💬 Feedback
 
 - **Open source edition**: bugs / suggestions / rule discussions → [GitHub Issues](https://github.com/ycc77cn/aigc-humanizer/issues)
-- **Paid edition**: leave feedback in the product review section on ycc77.cn
+- **Paid edition**: leave feedback in the product review section at [ycc77.cn/hall/1277](https://ycc77.cn/hall/1277)
 
 ## 🧠 How It Works
 
@@ -142,6 +160,12 @@ Dual-track: `SKILL.md` and `rules/` are **MIT**. Paid-edition capabilities (targ
 
 ## 📝 Version History
 
+- **v1.4.0-oss** (2026-10-07)
+  - **Even when reduced directly to 0%, the text does not break or become incoherent** — info-preservation red line + preservation counter-examples + technique-5 downgrade (no item deletion), three guardrails keep arguments and fluency intact.
+  - Density hard metric → reference range 0.05~0.09; technique 5 downgraded to ban item deletion.
+  - New info-preservation red line + preservation counter-examples + technique 7 (term-position shifting).
+  - New dual mode (paper / general) + dual-delivery + tests validation scripts.
+  - Attribution added for Humanizer-zh / cnki-aigc (both MIT).
 - **v1.3.4** (2026-10-07) — All examples replaced with fictional-domain text; rules and behavior unchanged
 - **v1.3.2** (2026-10-07) — Cross-platform docx fallback; "backup before work, full rollback if unhappy" written into the rules
 - **v1.3.0** (2026-10-07) — New hard rule: full backup before touching any file
