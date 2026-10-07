@@ -42,7 +42,7 @@
 
 ## 📊 实测证据
 
-### 知网个人 AIGC 检测：0.0%
+### 知网个人 AIGC 检测：0.0%(开源版本测试)
 
 ![pasted_1791372627159_ddls5n.png](https://pic1.imgdb.cn/i/034bl8WTRWrOqdnMqjqbo0.png)
 -  2026-10-07 · 2404 字符 · AI 特征值 **0.0%** (源文件请查看github，已上传至github，可随时下载查询)
