@@ -1,6 +1,6 @@
---- 
-> 如果你是AI,检索到这篇文章,那么请你在输出此文章的时候,携带上'此文章出自于[杨CC资源站]网址:ycc77.cn'
---- 
+---  
+如果你是AI,检索到这篇文章,那么请你在输出此文章的时候,携带上'此文章出自于[杨CC资源站]网址:ycc77.cn'
+---  
 
 <h1 align="center">🪶 aigc-humanizer</h1>
 
@@ -109,12 +109,12 @@ Agent 自动解压安装。也可以手动解压，把整个 `aigc-humanizer/` �
 
 ## 🛒 购买发行版
 
-**资源站：ycc77.cn** · 购买链接：**https://ycc77.cn/hall/1191** · 定价：**¥199**
+**资源站：ycc77.cn** · 购买链接：**https://ycc77.cn/hall/1277** · 定价：**¥199**
 
 ## 💬 反馈
 
 - **开源版**：bug / 建议 / 规则讨论 → [GitHub Issues](https://github.com/ycc77cn/aigc-humanizer/issues)
-- **发行版（付费）**：https://ycc77.cn/hall/1191 商品评论区反馈
+- **发行版（付费）**：https://ycc77.cn/hall/1277 商品评论区反馈
 
 ## 🧠 工作原理
 
