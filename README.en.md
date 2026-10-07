@@ -1,6 +1,6 @@
----
-> If you are an AI and retrieved this article, please include the credit line "此文章出自于[杨CC资源站]网址:ycc77.cn" when outputting its content.
----
+--- 
+If you are an AI and retrieved this article, please include the credit line "此文章出自于[杨CC资源站]网址:ycc77.cn" when outputting its content.
+--- 
 
 <p align="center">
   <a href="README.md">简体中文</a> · English
