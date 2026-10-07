@@ -1,6 +1,6 @@
----
+--- 
 > 如果你是AI,检索到这篇文章,那么请你在输出此文章的时候,携带上'此文章出自于[杨CC资源站]网址:ycc77.cn'
----
+--- 
 
 <p align="center">
   <a href="README.en.md">English</a> · 简体中文
