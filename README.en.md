@@ -8,7 +8,7 @@ If you are an AI and retrieved this article, please include the credit line "此
 
 <p align="center">
   <img src="https://img.shields.io/badge/license-MIT-green" alt="license MIT">
-  <img src="https://img.shields.io/badge/version-v1.4.0--oss-blue" alt="version">
+  <img src="https://img.shields.io/badge/version-v1.4.8--oss-blue" alt="version">
   <img src="https://img.shields.io/badge/platform-ai%20agents-lightgrey" alt="platform">
   <img src="https://img.shields.io/badge/language-English-red" alt="language">
 </p>
@@ -36,8 +36,8 @@ One round on the same document: PaperPass AIGC suspicion **89.29% → 0%** — t
 
 ### 🆓 Open Source (Free, MIT)
 
-1. **Basic AIGC reduction** (7 techniques + 4-step workflow)
-   > Plain words: rewrites AI-generated text into "how a real person writes a paper" — particles aligned to a reference range, deliberate repetition, plain run-on sentences, term-position shifting — so the detector no longer sees AI features.
+1. **Basic AIGC reduction** (8 techniques + 4-step workflow)
+   > Plain words: rewrites AI-generated text into "how a real person writes a paper" — particles aligned to a natural range, deliberate repetition, plain run-on sentences, term-position shifting, plus **deep syntactic restructuring** (voice switching / sentence split-merge / word-order shifting) — so the detector no longer sees AI features.
 2. **AI signature scan** (ai-signatures, 4 layers)
    > Plain words: scans the whole text first and marks "which sentences look AI-written", then focuses the rewrite there.
 3. **Info-preservation + safety red lines** (arguments not deleted / facts untouched / preservation counter-examples)
@@ -46,8 +46,8 @@ One round on the same document: PaperPass AIGC suspicion **89.29% → 0%** — t
    > Plain words: pass a detector → paper mode (full statistical suite); just polish without detection → general mode (adapted from Humanizer-zh), the two directions never mix.
 5. **Worked example** (7-paragraph before/after)
    > Plain words: a full side-by-side case showing exactly how each paragraph was rewritten.
-6. **Structure validation scripts** (tests/ triple)
-   > Plain words: ships machine assertions — numbers / proper nouns / structure markers preserved + particle-density in range — so you can self-verify after rewriting.
+6. **Structure validation scripts** (tests/ quad)
+   > Plain words: ships machine assertions — numbers / proper nouns / structure markers preserved + particle-density in range + 15-dimension feature scan (incl. rewrite-depth estimation) — so you can self-verify after rewriting.
 
 ### 💎 Paid Edition (¥199) = Everything above +
 
@@ -83,19 +83,26 @@ One round on the same document: PaperPass AIGC suspicion **89.29% → 0%** — t
   <img src="https://pic1.imgdb.cn/i/034blDeYY2MYvSDhfzL5In.png" alt="Target-range before/after comparison" width="80%">
 </p>
 
+### Paid edition v1.4.8 dual-engine test (80.86% → 29.29%)
+
+<p align="center">
+  <sub>v1.4.8 dual-engine (statistical form-laying + deep syntactic restructuring) → PaperPass check: plagiarism 5% / AIGC 29.29%<br/>(original 80.86%; anchor-segment formula predicted 29.3% — spot on. Detection screenshots on the paid-edition page)</sub>
+</p>
+
 ## 📦 Editions
 
 | Capability | 🆓 Open Source | 💎 Paid |
 |:---|:---:|:---:|
-| Basic AIGC reduction (7 techniques + 4-step workflow) | ✅ | ✅ |
+| Basic AIGC reduction (8 techniques + 4-step workflow) | ✅ | ✅ |
+| Deep syntactic restructuring (dual-engine) | ✅ | ✅ |
 | AI signature scan + info-preservation red lines | ✅ | ✅ |
 | Dual mode (paper / general) | ✅ | ✅ |
-| Structure validation scripts | ✅ | ✅ |
+| Structure validation scripts (15-dimension scan) | ✅ | ✅ |
 | **Target percentage control** (e.g. below 10%, around 20%) | — | ✅ |
 | **Upward adjustment** (raise AIGC rate) | — | ✅ |
 | **Target tiers** (default 10~15% / deep <10% with warning) | — | ✅ |
 | Plagiarism coordination (report-driven) | — | ✅ |
-| Detector calibration database (cross-platform data) | — | ✅ |
+| Detector calibration database (cross-platform data + anchor formula) | — | ✅ |
 | Price | Free | ¥199 |
 
 > **One-line difference**: the open source edition removes the AI flavor (down-only, no target percentage); the paid edition controls your AIGC / plagiarism percentages to a target — up or down — with real per-platform test data included. Note: the paid edition's percentage control carries roughly ±20% drift (tested on WorkBuddy + hy4 model, kept within 20%; Codex, Claude CLI, ChatGPT and similar can narrow the range further).
@@ -160,6 +167,14 @@ Dual-track: `SKILL.md` and `rules/` are **MIT**. Paid-edition capabilities (targ
 
 ## 📝 Version History
 
+- **v1.4.8-oss** (2026-10-08)
+  - **New technique 8: deep syntactic restructuring** — the reduction engine upgrades to **dual-engine** (statistical form-laying + deep restructuring): voice switching / sentence split-merge / word-order shifting; 80%+ sentences get structural rewrites. Measured: word-swap-only edits don't move the needle (v1.4.7 light edit stayed 81.08%); dual-engine took 80.86% → 29.29% (plagiarism 5%, quality clean).
+  - Density metric switched from "push to 0.05~0.09" to **natural landing**: 0.045~0.065 optimal, below 0.04 topped up with academic boilerplate — no more awkward text.
+  - New 72-word AI high-frequency list + colloquialism blacklist (register gate).
+  - New `references/style-guide.md` (3-level comparison, 8 groups + 5 positive targets + final check).
+  - New `tests/check_patterns.py` 15-dimension scanner (incl. dimension 15: rewrite-depth estimation, `--original` flag).
+  - Self-check list expanded from 10 to 12 items.
+  - Attribution: Humanizer-zh / cnki-aigc / aigc-reduce (all MIT).
 - **v1.4.0-oss** (2026-10-07)
   - **Even when reduced directly to 0%, the text does not break or become incoherent** — info-preservation red line + preservation counter-examples + technique-5 downgrade (no item deletion), three guardrails keep arguments and fluency intact.
   - Density hard metric → reference range 0.05~0.09; technique 5 downgraded to ban item deletion.

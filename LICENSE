@@ -2,7 +2,7 @@ MIT 开源许可证（MIT License）
 
 本技能包（aigc-humanizer 开源版）全部内容采用 MIT 许可证：
 
-  适用范围：本仓库全部文件（SKILL.md、rules/、references/、CHANGELOG.md）
+  适用范围：本仓库全部文件（SKILL.md、rules/、references/、tests/、CHANGELOG.md）
 
   MIT License
 
@@ -31,6 +31,8 @@ MIT 开源许可证（MIT License）
     参考 op7418/Humanizer-zh (MIT)
   - 知网检测器五模式画像、术语句法挪动认知、"低于 10% 警告"理念：
     参考 qingshanliuci/cnki-aigc---skill (MIT)
+  - 部分高频词清单与语体守门设计：
+    参考 xiaofenggan01/aigc-reduce (MIT)
   上述内容均经本技能重构适配，与原始项目无代码级依赖。
 
 完整版说明
