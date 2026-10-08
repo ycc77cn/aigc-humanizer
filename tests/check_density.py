@@ -3,7 +3,10 @@
 Checks per case:
   1. numbers_preserved: every listed token appears verbatim in rewritten text
   2. terms_preserved:   every listed term appears verbatim in rewritten text
-  3. "de" density of rewritten text within reference range [0.05, 0.09]
+  3. "de" density of rewritten text within normal range [0.04, 0.09]
+     (v1.4.8 rule: 0.045~0.065 is the optimal band; this script asserts the
+      wider normal band — FAIL below 0.04, matching the rule "must top up
+      below 0.04". Optimal-band guidance lives in rules/rewrite-rules.md.)
      density = count of U+7684 / non-whitespace char count (punctuation included)
   4. structure markers like "(1)" "(3)" carried over from input to rewritten
 
@@ -18,7 +21,10 @@ from pathlib import Path
 
 BASE = Path(__file__).parent
 DE = "\u7684"  # the particle "de"
-RANGE = (0.05, 0.09)
+# v1.4.8: normal band widened from [0.05, 0.09] to [0.04, 0.09].
+# Rule optimum is 0.045~0.065; below 0.04 the rule demands top-up (see
+# rules/rewrite-rules.md 手法一). Script asserts the wider normal band only.
+RANGE = (0.04, 0.09)
 
 
 def density(text: str) -> float:

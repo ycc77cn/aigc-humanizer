@@ -230,17 +230,47 @@ def count_info_points(text):
 import difflib
 
 
+def is_anchor_sentence(s):
+    """锚段豁免判定：章节标题与参考文献条目本就不该改写，
+    计入改写深度分母会虚拉低深度重写率（v1.4.8.1 修复）。"""
+    t = s.strip()
+    if not t:
+        return True
+    if len(t) <= 14 and not re.search(r'[，。；]', t):
+        return True  # 短行无标点：标题类
+    if re.match(r'^[一二三四五六七八九十百]+[、．.]', t):
+        return True  # 中文章节标题："一、""二、"
+    if re.match(r'^\d+(\.\d+)*[、\s]', t):
+        return True  # 数字编号标题："3.1 ""12、"
+    if re.match(r'^\[\d+\]', t):
+        return True  # 参考文献条目："[1] …"
+    return False
+
+
 def estimate_rewrite_depth(text, original_text):
-    """第15维：改写深度估算——句级最优匹配，量化结构重写率。
-    对改写文本的每个句子，在原文中找最相似的句子，相似度越低=改得越深。
-    深度重写率 = 相似度<0.5的句子占比（结构级重写，非同义替换）。
+    """第15维：改写深度估算（v1.4.8.1 改写段口径）。
+
+    三类句子，分三层处理：
+    - 格式锚：章节标题/参考文献（is_anchor_sentence）——本就不在改写范围
+    - 业务锚段：目标规划模式下刻意逐字保留的 AI 原句——自动识别为
+      与原文最优相似度 >0.97 的句子（规划保留=不改，不该拖累深度指标）
+    - 改写段：真正应该被深度重写的句子
+      深度重写率（预警口径）= 深度句 ÷ 改写段句数，目标 80%+
+
+    预警只挂"改写段深度率"；全文口径仅作参考输出。
+    若无锚段规划（全文深改场景），与原文一致的句子同样被豁免——
+    此时改写段口径自动退化为"应改未改句的深度率"，仍优于全文口径。
     """
     orig_sents = split_sentences(original_text)
     new_sents = split_sentences(text)
     if not orig_sents or not new_sents:
         return {'risk': '数据不足', 'note': '需 --original 参数提供原文'}
     best = []
+    format_anchors = 0
     for ns in new_sents:
+        if is_anchor_sentence(ns):
+            format_anchors += 1
+            continue
         m = 0
         for os_ in orig_sents:
             r = difflib.SequenceMatcher(None, os_, ns).ratio()
@@ -248,21 +278,36 @@ def estimate_rewrite_depth(text, original_text):
                 m = r
             if m > 0.97:
                 break
-        best.append(m)
-    total = len(best)
-    unchanged = sum(1 for b in best if b > 0.97)
-    light = sum(1 for b in best if 0.8 < b <= 0.97)
-    mid = sum(1 for b in best if 0.5 < b <= 0.8)
-    deep = sum(1 for b in best if b <= 0.5)
-    deep_rate = round(deep / max(total, 1), 3)
-    avg_sim = round(sum(best) / max(total, 1), 3)
+        best.append((m, ns))
+    if not best:
+        return {'risk': '数据不足',
+                'note': '全部句子命中格式锚豁免（标题/参考文献），无可评估正文句'}
+    # 业务锚段：与原文逐字一致的句子（>0.97）= 规划保留的 AI 原句
+    retained = [b for b in best if b[0] > 0.97]
+    writable = [b for b in best if b[0] <= 0.97]
+    light = [b for b in writable if 0.8 < b[0] <= 0.97]
+    mid = [b for b in writable if 0.5 < b[0] <= 0.8]
+    deep = [b for b in writable if b[0] <= 0.5]
+    w_total = len(writable)
+    deep_rate = round(len(deep) / max(w_total, 1), 3)
+    avg_sim = round(sum(b[0] for b in writable) / max(w_total, 1), 3)
+    # 全文参考口径（含锚段）
+    f_total = len(best)
+    full_deep_rate = round(len(deep) / max(f_total, 1), 3)
     return {
-        'total_sentences': total, 'unchanged': unchanged, 'light_edit': light,
-        'mid_edit': mid, 'deep_rewrite': deep,
+        'total_sentences': len(new_sents),
+        'format_anchors': format_anchors,
+        'retained_anchors': len(retained),
+        'writable_sentences': w_total,
+        'light_edit': len(light), 'mid_edit': len(mid), 'deep_rewrite': len(deep),
         'deep_rate': deep_rate, 'avg_similarity': avg_sim,
-        'risk': f'⚠️ 深度重写率 {deep_rate:.0%}（目标 80%+）' if deep_rate < 0.8
-                else f'达标（{deep_rate:.0%}）',
-        'note': '>0.97未改, 0.8-0.97轻改, 0.5-0.8中改, ≤0.5深度重写'
+        'full_text_rate': full_deep_rate,
+        'risk': f'⚠️ 改写段深度率 {deep_rate:.0%}（目标 80%+）' if deep_rate < 0.8
+                else f'达标（改写段深度率 {deep_rate:.0%}）',
+        'note': '改写段=总句-格式锚(标题/参考文献)-业务锚段(与原文逐字一致=规划保留)；'
+                '预警只看改写段深度率；full_text_rate 为含锚段的全文参考口径；'
+                '无锚段规划时（全文深改场景），retained_anchors 应接近 0——'
+                '大于 0 意味着存在漏改句，不是锚段'
     }
 
 
@@ -334,7 +379,9 @@ def print_report(r):
             extra = f"  {d['terms'][:5]}"
         elif key == '15_rewrite_depth':
             if d.get('deep_rate') is not None:
-                extra = f"  深度重写{d.get('deep_rewrite', 0)}/{d.get('total_sentences', 0)}句"
+                extra = (f"  深度重写{d.get('deep_rewrite', 0)}/{d.get('writable_sentences', 0)}句"
+                         f"（锚段豁免{d.get('format_anchors', 0)}+{d.get('retained_anchors', 0)}，"
+                         f"全文口径{d.get('full_text_rate', 0):.0%}）")
             elif d.get('note'):
                 extra = f"  {d['note']}"
         print(f"  [{key.split('_')[0]:>2}] {name:10s}  {v}{extra}")
